@@ -1,6 +1,6 @@
 # eshop
 
-This template should help get you started developing with Vue 3 in Vite.
+Vue 3 eshop project with Pinia, Composition API
 
 ## Recommended IDE Setup
 

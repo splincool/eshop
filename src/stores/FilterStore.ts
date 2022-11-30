@@ -5,7 +5,7 @@ type StoreShape = {
 }
 
 export const useFiltersStore = defineStore({
-	id: 'filters',
+	id: 'FilterStore',
 	state: (): StoreShape => ({
 		searchBarValue: '',
 	}),

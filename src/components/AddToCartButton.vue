@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue';
-import { useCartStore } from '@/stores/cart';
+import { useCartStore } from '@/stores/CartStore';
 import { IProduct } from '@/model/Product';
 
 enum ButtonText {
@@ -34,7 +34,6 @@ const buttonStyles = computed(() => {
 		color: '#fff',
 		background: '#6a983c'
 	}
-
 	const removeButton = {
 		color: '#151515',
 		background: '#fff',
@@ -44,24 +43,20 @@ const buttonStyles = computed(() => {
 })
 
 onMounted(() => {
-	// TODO: maybe move it to getters
-	const isInCart = cart.items.findIndex((item) => item.id === props.product.id) > -1;
-	if (isInCart) {
-		isClicked.value = true;
-	}
+	isClicked.value = cart.isInCart(props.product.id);
 });
 </script>
 
 <template>
 	<div
-		class="add-to-cart"
+		:class="$style['add-to-cart']"
 		@click.stop="onBuyClick"
 	>
 		{{ buttonText }}
 	</div>
 </template>
 
-<style>
+<style module>
 .add-to-cart {
 	padding: 6px 12px;
 	border: 2px solid #46760a;

@@ -14,20 +14,21 @@ watchEffect(() => {
 </script>
 
 <template>
-	<div class="search-bar">
+	<div :class="$style['search-bar']">
 		<input
 			v-model="inputValue"
-			class="search-bar__input"
+			:class="$style['search-bar__input']"
 			placeholder="Search products"
 		/>
-		<IconSearch class="search-bar__icon" />
+		<IconSearch :class="$style['search-bar__icon']" />
 	</div>
 </template>
 
-<style>
+<style module>
 .search-bar {
 	position: relative;
 }
+
 .search-bar__input {
 	background: #f9f9f9;
 	border: 1px solid #d1d1d1;
@@ -38,6 +39,7 @@ watchEffect(() => {
 	height: 40px;
 	padding-left: 24px;
 }
+
 .search-bar__icon {
 	position: absolute;
 	top: 14px;

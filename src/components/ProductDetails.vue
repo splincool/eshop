@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue';
-import type { PropType } from 'vue';
 import { IProduct } from '@/model/Product';
 import { useCurrency } from '@/composables/useCurrency';
 import Rating from '@/components/Rating.vue';

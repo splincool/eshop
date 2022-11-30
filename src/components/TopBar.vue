@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useCartStore } from '@/stores/cart';
-import { useFiltersStore } from '@/stores/filters';
+import { useCartStore } from '@/stores/CartStore';
+import { useFiltersStore } from '@/stores/FilterStore';
 import IconCart from '@/components/icons/IconCart.vue';
 import SearchBar from '@/components/SearchBar.vue';
 
@@ -26,44 +26,50 @@ const onSearch = (value: string) => {
 </script>
 
 <template>
-	<div class="top-bar">
-		<div class="site-logo">
+	<div :class="$style['top-bar']">
+		<div :class="$style['site-logo']">
 			<router-link to="/">Eshop</router-link>
 		</div>
 		<SearchBar v-if="isHomeView" @search="onSearch" />
-		<div class="action-icons">
-			<div class="icon-cart-block" @click="goToCart">
-				<IconCart class="icon-cart" />
-				<div class="badge">{{ cart.itemsInCart }}</div>
+		<div :class="$style['action-icons']">
+			<div :class="$style['icon-cart-block']" @click="goToCart">
+				<IconCart :class="$style['icon-cart']" />
+				<div :class="$style['badge']">{{ cart.itemsInCart }}</div>
 			</div>
 		</div>
 	</div>
 </template>
 
-<style scoped>
+<style module>
 .top-bar {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	padding: 45px 52px 48px 45px;
 }
+
 .site-logo {
 	font-size: 25px;
 	font-weight: 600;
 }
+
 .site-logo a {
 	text-decoration: none;
 }
+
 .site-logo a:visited {
 	color: #151515;
 }
+
 .action-icons {
 	display: flex;
 }
+
 .icon-cart-block {
 	position: relative;
 	cursor: pointer;
 }
+
 .badge {
 	position: absolute;
 	right: 14px;

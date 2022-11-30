@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, watchEffect, computed } from 'vue';
-import ProductCard from '@/components/ProductCard.vue';
 import { IProduct } from '@/model/Product';
-import { useFiltersStore } from '@/stores/filters';
+import { useFiltersStore } from '@/stores/FilterStore';
+import ProductCard from '@/components/ProductCard.vue';
 
 const API_PRODUCTS_URL = 'https://fakestoreapi.com/products';
 
@@ -18,19 +18,27 @@ const filteredProducts = computed(() => {
 });
 
 watchEffect(async () => {
-	products.value = await (await fetch(API_PRODUCTS_URL)).json();
+	try {
+		products.value = await (await fetch(API_PRODUCTS_URL)).json();
+	} catch (error) {
+		console.error(error)
+	}
 	isLoading.value = false;
 });
 </script>
 
 <template>
 	<div v-if="isLoading" class="loading">Loading...</div>
-	<div v-else class="product-list">
-		<ProductCard v-for="card in filteredProducts" :key="card.id" :card="card" />
+	<div v-else :class="$style['product-list']">
+		<ProductCard 
+			v-for="card in filteredProducts"
+			:key="card.id"
+			:card="card"
+		/>
 	</div>
 </template>
 
-<style scoped>
+<style module>
 .product-list {
 	display: flex;
 	flex-wrap: wrap;

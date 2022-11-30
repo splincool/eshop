@@ -6,7 +6,7 @@ import ProductDetails from '@/components/ProductDetails.vue';
 
 const route = useRoute();
 const API_PRODUCT_URL = 'https://fakestoreapi.com/products/'
-const product = ref<IProduct>();
+const product = ref<IProduct | null>(null);
 const isLoading = ref(true);
 
 watchEffect(async () => {
@@ -22,5 +22,5 @@ watchEffect(async () => {
 
 <template>
 	<div v-if="isLoading" class="loading">Loading...</div>
-	<ProductDetails v-else :product="product" />
+	<ProductDetails v-else-if="product" :product="product" />
 </template>

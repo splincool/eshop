@@ -16,7 +16,10 @@ const emptyStarsCount = computed(() => {
 </script>
 
 <template>
-	<IconFilledStar v-for="star in roundedRating" :key="star" />
+	<IconFilledStar 
+		v-for="star in roundedRating"
+		:key="star" 
+	/>
 	<IconEmptyStar
 		v-for="star in emptyStarsCount"
 		:key="star"

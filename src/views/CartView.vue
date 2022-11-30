@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, unref } from 'vue';
-import { useCartStore } from '@/stores/cart';
+import { computed } from '@vue/reactivity';
+import { useCartStore } from '@/stores/CartStore';
 import { useCurrency } from '@/composables/useCurrency';
 import CartItem from '@/components/CartItem.vue';
 
@@ -18,9 +18,9 @@ const onRemove = (id: number) => {
 </script>
 
 <template>
-	<div class="shopping-cart">
-		<div class="shopping-cart__title">Shopping Cart</div>
-		<div class="shopping-cart__list">
+	<div :class="$style['shopping-cart']">
+		<div :class="$style['shopping-cart__title']">Shopping Cart</div>
+		<div :class="$style['shopping-cart__list']">
 			<CartItem
 				v-for="item in cart.items"
 				:key="item.id"
@@ -28,33 +28,38 @@ const onRemove = (id: number) => {
 				@remove="onRemove"
 			/>
 		</div>
-		<div class="shopping-cart__total-price">
-			<div class="total-price__title">Total price:</div>
-			<div class="total-price__value">{{ currency }}</div>
+		<div :class="$style['shopping-cart__total-price']">
+			<div :class="$style['total-price__title']">Total price:</div>
+			<div :class="$style['total-price__value']">{{ currency }}</div>
 		</div>
 	</div>
 </template>
 
-<style scoped>
+<style module>
 .shopping-cart {
 	padding-bottom: 50px;
 }
+
 .shopping-cart__title {
 	font-weight: 600;
 	font-size: 26px;
 	color: #151515;
 }
+
 .shopping-cart__list {
 	margin-top: 24px;
 }
+
 .shopping-cart__total-price {
 	margin-top: 20px;
 }
+
 .total-price__title {
 	font-weight: 600;
 	font-size: 12px;
 	color: #000000;
 }
+
 .total-price__value {
 	font-weight: 600;
 	font-size: 26px;

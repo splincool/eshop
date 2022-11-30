@@ -10,8 +10,8 @@ const product = ref<IProduct | null>(null);
 const isLoading = ref(true);
 
 watchEffect(async () => {
-	const productId = route.params.id;
 	try {
+		const productId = route.params.id;
 		product.value = await (await fetch(`${API_PRODUCT_URL}${productId}`)).json();
 	} catch (error) {
 		console.error(error);

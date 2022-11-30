@@ -3,6 +3,11 @@ import { onMounted, ref, computed } from 'vue';
 import { useCartStore } from '@/stores/cart';
 import { IProduct } from '@/model/Product';
 
+enum ButtonText {
+	'add' = 'Add to cart',
+	'remove' = 'Remove'
+}
+
 const props = defineProps<{
 	product: IProduct;
 }>();
@@ -21,12 +26,26 @@ const onBuyClick = () => {
 };
 
 const buttonText = computed(() => {
-	return isClicked.value ? 'Remove' : 'Add to cart';
+	return isClicked.value ? ButtonText.remove : ButtonText.add;
 });
 
+const buttonStyles = computed(() => {
+	const addButton = {
+		color: '#fff',
+		background: '#6a983c'
+	}
+
+	const removeButton = {
+		color: '#151515',
+		background: '#fff',
+	}
+
+	return isClicked.value ? removeButton : addButton;
+})
+
 onMounted(() => {
-	const isInCart =
-		cart.items.findIndex((item) => item.id === props.product.id) > -1;
+	// TODO: maybe move it to getters
+	const isInCart = cart.items.findIndex((item) => item.id === props.product.id) > -1;
 	if (isInCart) {
 		isClicked.value = true;
 	}
@@ -36,7 +55,6 @@ onMounted(() => {
 <template>
 	<div
 		class="add-to-cart"
-		:class="isClicked ? 'add-to-cart__buy_clicked' : 'add-to-cart__not-clicked'"
 		@click.stop="onBuyClick"
 	>
 		{{ buttonText }}
@@ -50,13 +68,7 @@ onMounted(() => {
 	border-radius: 12px;
 	font-size: 15px;
 	cursor: pointer;
-}
-.add-to-cart__not-clicked {
-	color: #fff;
-	background: #6a983c;
-}
-.add-to-cart__buy_clicked {
-	color: #151515;
-	background: #fff;
+	color: v-bind('buttonStyles.color');
+	background: v-bind('buttonStyles.background')
 }
 </style>

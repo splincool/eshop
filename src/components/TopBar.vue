@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import IconCart from '@/components/icons/IconCart.vue';
+import { useRoute, useRouter } from 'vue-router';
 import { useCartStore } from '@/stores/cart';
 import { useFiltersStore } from '@/stores/filters';
-import router from '@/router';
+import IconCart from '@/components/icons/IconCart.vue';
 import SearchBar from '@/components/SearchBar.vue';
+
+const route = useRoute();
+const router = useRouter()
 
 const cart = useCartStore();
 const filters = useFiltersStore();
 
 const isHomeView = computed(() => {
-	return router.currentRoute.value.name === 'home';
+	return route.name === 'home';
 });
 
 const goToCart = () => {

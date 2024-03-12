@@ -12,8 +12,9 @@ const products = ref<IProduct[]>([]);
 
 const filteredProducts = computed(() => {
 	if (filters.searchBarValue) {
-		return products.value.filter((product: IProduct) => product.title.includes(filters.searchBarValue));
+		return products.value.filter(({title}: IProduct) => title.includes(filters.searchBarValue));
 	}
+
 	return products.value;
 });
 
@@ -28,8 +29,16 @@ watchEffect(async () => {
 </script>
 
 <template>
-	<div v-if="isLoading" class="loading">Loading...</div>
-	<div v-else :class="$style['product-list']">
+	<div 
+		v-if="isLoading" 
+		class="loading"
+	>
+		Loading...
+	</div>
+	<div 
+		v-else 
+		:class="$style['product-list']"
+	>
 		<ProductCard 
 			v-for="card in filteredProducts"
 			:key="card.id"
